@@ -15,23 +15,9 @@ export default function Contact() {
     message: ''
   });
 
-  // Manejamos el envío usando fetch para Netlify
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    // Preparamos los datos en formato URL-Encoded
-    const formParams = new URLSearchParams();
-    formParams.append('form-name', 'contact'); // Nombre del form
-    Object.entries(formData).forEach(([key, value]) => {
-      formParams.append(key, value);
-    });
-
-    fetch('/', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-      body: formParams.toString()
-    })
-      .then(() => alert('Formulario enviado correctamente.'))
-      .catch(err => alert(`Error al enviar: ${err}`));
+  // Ya no previene el envío ni hace fetch, Netlify se encarga
+  const handleSubmit = () => {
+    // Si quisieras validaciones previas, hazlas aquí, sin hacer preventDefault
   };
 
   const handleChange = (
@@ -58,6 +44,8 @@ export default function Contact() {
           <motion.form
             name="contact"
             method="POST"
+            // Opcional: agrega una página de éxito si la tienes creada
+            // action="/success"
             data-netlify="true"
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
@@ -66,7 +54,6 @@ export default function Contact() {
             onSubmit={handleSubmit}
             className="space-y-6"
           >
-            {/* Campo oculto que ayuda a Netlify a identificar el form */}
             <input type="hidden" name="form-name" value="contact" />
 
             <motion.div
