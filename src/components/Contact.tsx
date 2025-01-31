@@ -8,18 +8,35 @@ import { motion } from 'framer-motion';
 export default function Contact() {
   const { language } = useLanguage();
   const t = translations[language];
+
   const [formData, setFormData] = useState({
     name: '',
     email: '',
     message: ''
   });
 
+  // Manejamos el envío usando fetch para Netlify
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    console.log(formData);
+    // Preparamos los datos en formato URL-Encoded
+    const formParams = new URLSearchParams();
+    formParams.append('form-name', 'contact'); // Nombre del form
+    Object.entries(formData).forEach(([key, value]) => {
+      formParams.append(key, value);
+    });
+
+    fetch('/', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      body: formParams.toString()
+    })
+      .then(() => alert('Formulario enviado correctamente.'))
+      .catch(err => alert(`Error al enviar: ${err}`));
   };
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
     setFormData({
       ...formData,
       [e.target.name]: e.target.value
@@ -39,6 +56,9 @@ export default function Contact() {
           </AnimatedSection>
 
           <motion.form
+            name="contact"
+            method="POST"
+            data-netlify="true"
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
@@ -46,6 +66,9 @@ export default function Contact() {
             onSubmit={handleSubmit}
             className="space-y-6"
           >
+            {/* Campo oculto que ayuda a Netlify a identificar el form */}
+            <input type="hidden" name="form-name" value="contact" />
+
             <motion.div
               initial={{ x: -50, opacity: 0 }}
               whileInView={{ x: 0, opacity: 1 }}
