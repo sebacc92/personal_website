@@ -52,7 +52,19 @@ export default function Contact() {
             </div>
           </AnimatedSection>
 
-          <motion.form
+          <form name="contact" netlify>
+            <p>
+              <label>Name <input type="text" name="name" /></label>
+            </p>
+            <p>
+              <label>Email <input type="email" name="email" /></label>
+            </p>
+            <p>
+              <button type="submit">Send</button>
+            </p>
+          </form>
+
+          {/* <motion.form
             name="contact"
             method="POST"
             // Opcional: agrega una página de éxito si la tienes creada
@@ -145,7 +157,7 @@ export default function Contact() {
               <Send className="h-4 w-4" />
               <span>{t.contact.send}</span>
             </motion.button>
-          </motion.form>
+          </motion.form> */}
         </div>
       </div>
     </section>
