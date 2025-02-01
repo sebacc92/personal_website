@@ -15,7 +15,6 @@ export default function Contact() {
     message: ''
   });
 
-  // Ya no previene el envío ni hace fetch, Netlify se encarga
   const handleSubmit = event => {
     event.preventDefault();
 
@@ -58,13 +57,13 @@ export default function Contact() {
             method="POST"
             // Opcional: agrega una página de éxito si la tienes creada
             // action="/success"
-            data-netlify="true"
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5 }}
             onSubmit={handleSubmit}
             className="space-y-6"
+            netlify
           >
             <input type="hidden" name="form-name" value="contact" />
 
