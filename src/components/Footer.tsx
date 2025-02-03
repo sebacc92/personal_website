@@ -19,12 +19,12 @@ export default function Footer() {
   };
 
   const socials = [
-    { icon: <Github className="h-5 w-5" />, url: 'https://github.com/sebacc' },
-    { icon: <Twitter className="h-5 w-5" />, url: 'https://twitter.com/sebacc' },
-    { icon: <Linkedin className="h-5 w-5" />, url: 'https://linkedin.com/in/sebacc' },
-    { icon: <Instagram className="h-5 w-5" />, url: 'https://instagram.com/sebacc' },
-    { icon: <Youtube className="h-5 w-5" />, url: 'https://youtube.com/@sebacc' },
-    { icon: <BrandTiktok className="h-5 w-5" />, url: 'https://tiktok.com/@sebacc' }
+    { icon: <Github className="h-5 w-5" />, url: 'https://github.com/sebacc92' },
+    { icon: <Twitter className="h-5 w-5" />, url: 'https://twitter.com/sebacc92' },
+    { icon: <Linkedin className="h-5 w-5" />, url: 'https://linkedin.com/in/sebastiancardoso92/' },
+    { icon: <Instagram className="h-5 w-5" />, url: 'https://instagram.com/sebacc92' },
+    { icon: <Youtube className="h-5 w-5" />, url: 'https://youtube.com/@sebacc92' },
+    { icon: <BrandTiktok className="h-5 w-5" />, url: 'https://tiktok.com/@sebacc92' }
   ];
 
   const container = {
