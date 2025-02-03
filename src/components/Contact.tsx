@@ -31,23 +31,22 @@ export default function Contact() {
 
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
-  
-    // Usa FormData directamente del formulario HTML
-    const formData = new FormData(event.currentTarget as HTMLFormElement);
+
+    const body = new URLSearchParams({
+      'form-name': 'contact', // 👈 Asegura el form-name
+      ...formValues
+    });
   
     try {
       await fetch("/", {
         method: "POST",
-        headers: { 
-          "Content-Type": "application/x-www-form-urlencoded" 
-        },
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        body: new URLSearchParams(formData as any).toString(),
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        body: body.toString()
       });
       setIsSubmitted(true);
       setFormValues({ name: '', email: '', message: '' });
     } catch (error) {
-      alert("Error al enviar: " + (error as Error).message);
+      alert("Error: " + (error as Error).message);
     }
   };
 
@@ -82,7 +81,6 @@ export default function Contact() {
           <motion.form
             name="contact"
             method="POST"
-            data-netlify="true"
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
