@@ -18,9 +18,9 @@ export default function Contact() {
   
   // Configura tus credenciales de EmailJS (crea cuenta gratis en https://www.emailjs.com/)
   
-  const SERVICE_ID = process.env.REACT_APP_EMAILJS_SERVICE_ID!;
-  const TEMPLATE_ID = process.env.REACT_APP_EMAILJS_TEMPLATE_ID!;
-  const PUBLIC_KEY = process.env.REACT_APP_EMAILJS_PUBLIC_KEY!;
+  const SERVICE_ID = import.meta.env.VITE_EMAILJS_SERVICE_ID!;
+  const TEMPLATE_ID = import.meta.env.VITE_EMAILJS_TEMPLATE_ID!;
+  const PUBLIC_KEY = import.meta.env.VITE_EMAILJS_PUBLIC_KEY!;
 
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
