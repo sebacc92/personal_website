@@ -31,24 +31,23 @@ export default function Contact() {
 
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
-    setIsSubmitted(false); // Resetear estado antes del envío
-
-    const formData = new URLSearchParams();
-    formData.append('form-name', 'contact');
-    formData.append('name', formValues.name);
-    formData.append('email', formValues.email);
-    formData.append('message', formValues.message);
-
+  
+    // Usa FormData directamente del formulario HTML
+    const formData = new FormData(event.currentTarget as HTMLFormElement);
+  
     try {
       await fetch("/", {
         method: "POST",
-        headers: { "Content-Type": "application/x-www-form-urlencoded" },
-        body: formData.toString(),
+        headers: { 
+          "Content-Type": "application/x-www-form-urlencoded" 
+        },
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        body: new URLSearchParams(formData as any).toString(),
       });
       setIsSubmitted(true);
-      setFormValues({ name: '', email: '', message: '' }); // Limpiar campos
+      setFormValues({ name: '', email: '', message: '' });
     } catch (error) {
-      alert(error instanceof Error ? error.message : 'Error desconocido');
+      alert("Error al enviar: " + (error as Error).message);
     }
   };
 
