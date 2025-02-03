@@ -8,8 +8,8 @@ import { motion } from 'framer-motion';
 export default function Contact() {
   const { language } = useLanguage();
   const t = translations[language];
-
-  const [formData, setFormData] = useState({
+  const [isSubmitted, setIsSubmitted] = useState(false);
+  const [formValues, setFormValues] = useState({
     name: '',
     email: '',
     message: ''
@@ -31,30 +31,32 @@ export default function Contact() {
 
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
+    setIsSubmitted(false); // Resetear estado antes del envío
 
-    const urlEncodedFormData = new URLSearchParams();
-    urlEncodedFormData.append('form-name', 'contact');
-    urlEncodedFormData.append('name', formData.name);
-    urlEncodedFormData.append('email', formData.email);
-    urlEncodedFormData.append('message', formData.message);
+    const formData = new URLSearchParams();
+    formData.append('form-name', 'contact');
+    formData.append('name', formValues.name);
+    formData.append('email', formValues.email);
+    formData.append('message', formValues.message);
 
     try {
       await fetch("/", {
         method: "POST",
         headers: { "Content-Type": "application/x-www-form-urlencoded" },
-        body: urlEncodedFormData.toString(),
+        body: formData.toString(),
       });
-      window.location.href = "/gracias"; // Redirección manual
+      setIsSubmitted(true);
+      setFormValues({ name: '', email: '', message: '' }); // Limpiar campos
     } catch (error) {
-      alert('Error al enviar el formulario');
+      alert(error instanceof Error ? error.message : 'Error desconocido');
     }
   };
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
-    setFormData({
-      ...formData,
+    setFormValues({
+      ...formValues,
       [e.target.name]: e.target.value
     });
   };
@@ -63,13 +65,18 @@ export default function Contact() {
     <section id="contact" className="py-20 bg-gray-50 dark:bg-gray-800">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="max-w-2xl mx-auto">
-          {hiddenForm} {/* Formulario oculto para Netlify */}
+          {hiddenForm}
           
           <AnimatedSection>
             <div className="text-center mb-16">
               <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-4">
                 {t.contact.title}
               </h2>
+              {isSubmitted && (
+                <div className="text-green-600 dark:text-green-400 mb-4">
+                  {t.contact.successMessage}
+                </div>
+              )}
             </div>
           </AnimatedSection>
 
@@ -86,7 +93,74 @@ export default function Contact() {
           >
             <input type="hidden" name="form-name" value="contact" />
 
-            {/* Campos del formulario... (mantén tus motion.div actuales) */}
+            <motion.div
+              initial={{ x: -50, opacity: 0 }}
+              whileInView={{ x: 0, opacity: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: 0.1 }}
+            >
+              <label
+                htmlFor="name"
+                className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1"
+              >
+                {t.contact.name}
+              </label>
+              <input
+                type="text"
+                id="name"
+                name="name"
+                value={formValues.name}
+                onChange={handleChange}
+                required
+                className="w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400 focus:border-transparent transition-all duration-200"
+              />
+            </motion.div>
+
+            <motion.div
+              initial={{ x: -50, opacity: 0 }}
+              whileInView={{ x: 0, opacity: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: 0.2 }}
+            >
+              <label
+                htmlFor="email"
+                className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1"
+              >
+                {t.contact.email}
+              </label>
+              <input
+                type="email"
+                id="email"
+                name="email"
+                value={formValues.email}
+                onChange={handleChange}
+                required
+                className="w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400 focus:border-transparent transition-all duration-200"
+              />
+            </motion.div>
+
+            <motion.div
+              initial={{ x: -50, opacity: 0 }}
+              whileInView={{ x: 0, opacity: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: 0.3 }}
+            >
+              <label
+                htmlFor="message"
+                className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1"
+              >
+                {t.contact.message}
+              </label>
+              <textarea
+                id="message"
+                name="message"
+                value={formValues.message}
+                onChange={handleChange}
+                required
+                rows={4}
+                className="w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400 focus:border-transparent transition-all duration-200"
+              />
+            </motion.div>
 
             <motion.button
               type="submit"
