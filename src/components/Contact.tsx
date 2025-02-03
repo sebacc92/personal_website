@@ -4,6 +4,7 @@ import { translations } from '../data/translations';
 import { Send } from 'lucide-react';
 import AnimatedSection from './AnimatedSection';
 import { motion } from 'framer-motion';
+import emailjs from '@emailjs/browser';
 
 export default function Contact() {
   const { language } = useLanguage();
@@ -14,40 +15,32 @@ export default function Contact() {
     email: '',
     message: ''
   });
-
-  // Formulario estático oculto para detección de Netlify
-  const hiddenForm = (
-    <form 
-      name="contact" 
-      data-netlify="true" 
-      hidden
-    >
-      <input type="hidden" name="form-name" value="contact" />
-      <input type="text" name="name" />
-      <input type="email" name="email" />
-      <textarea name="message" />
-    </form>
-  );
+  
+  // Configura tus credenciales de EmailJS (crea cuenta gratis en https://www.emailjs.com/)
+  
+  const SERVICE_ID = process.env.REACT_APP_EMAILJS_SERVICE_ID!;
+  const TEMPLATE_ID = process.env.REACT_APP_EMAILJS_TEMPLATE_ID!;
+  const PUBLIC_KEY = process.env.REACT_APP_EMAILJS_PUBLIC_KEY!;
 
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
-  
-    const formData = new FormData();
-    formData.append("form-name", "contact");
-    formData.append("name", formValues.name);
-    formData.append("email", formValues.email);
-    formData.append("message", formValues.message);
-  
+
     try {
-      await fetch("/", {
-        method: "POST",
-        headers: { "Content-Type": "application/x-www-form-urlencoded" },
-        body: new URLSearchParams(formData as any).toString(),
-      });
+      await emailjs.send(
+        SERVICE_ID,
+        TEMPLATE_ID,
+        {
+          from_name: formValues.name,
+          from_email: formValues.email,
+          message: formValues.message
+        },
+        PUBLIC_KEY
+      );
+
       setIsSubmitted(true);
-      setFormValues({ name: "", email: "", message: "" });
+      setFormValues({ name: '', email: '', message: '' });
     } catch (error) {
-      alert("Error: " + (error as Error).message);
+      alert("Error al enviar: " + (error as Error).message);
     }
   };
 
@@ -60,11 +53,12 @@ export default function Contact() {
     });
   };
 
+  console.log('SERVICE_ID: ',SERVICE_ID)
+
   return (
     <section id="contact" className="py-20 bg-gray-50 dark:bg-gray-800">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="max-w-2xl mx-auto">
-          {hiddenForm}
           
           <AnimatedSection>
             <div className="text-center mb-16">
@@ -80,8 +74,6 @@ export default function Contact() {
           </AnimatedSection>
 
           <motion.form
-            name="contact"
-            method="POST"
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
@@ -89,76 +81,8 @@ export default function Contact() {
             onSubmit={handleSubmit}
             className="space-y-6"
           >
-            <input type="hidden" name="form-name" value="contact" />
-
-            <motion.div
-              initial={{ x: -50, opacity: 0 }}
-              whileInView={{ x: 0, opacity: 1 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: 0.1 }}
-            >
-              <label
-                htmlFor="name"
-                className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1"
-              >
-                {t.contact.name}
-              </label>
-              <input
-                type="text"
-                id="name"
-                name="name"
-                value={formValues.name}
-                onChange={handleChange}
-                required
-                className="w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400 focus:border-transparent transition-all duration-200"
-              />
-            </motion.div>
-
-            <motion.div
-              initial={{ x: -50, opacity: 0 }}
-              whileInView={{ x: 0, opacity: 1 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: 0.2 }}
-            >
-              <label
-                htmlFor="email"
-                className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1"
-              >
-                {t.contact.email}
-              </label>
-              <input
-                type="email"
-                id="email"
-                name="email"
-                value={formValues.email}
-                onChange={handleChange}
-                required
-                className="w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400 focus:border-transparent transition-all duration-200"
-              />
-            </motion.div>
-
-            <motion.div
-              initial={{ x: -50, opacity: 0 }}
-              whileInView={{ x: 0, opacity: 1 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: 0.3 }}
-            >
-              <label
-                htmlFor="message"
-                className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1"
-              >
-                {t.contact.message}
-              </label>
-              <textarea
-                id="message"
-                name="message"
-                value={formValues.message}
-                onChange={handleChange}
-                required
-                rows={4}
-                className="w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400 focus:border-transparent transition-all duration-200"
-              />
-            </motion.div>
+            {/* Campos del formulario (mantén tu código actual igual) */}
+            {/* ... */}
 
             <motion.button
               type="submit"
