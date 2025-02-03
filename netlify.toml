@@ -1,0 +1,20 @@
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
+  force = false
+  conditions = {Path = "/*"}
+
+# Excluye archivos estáticos (JS, CSS, imágenes)
+[[redirects]]
+  from = "/assets/*"
+  status = 200
+  force = true
+
+# Para Single Page Apps (SPA)
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
+  force = false # 👈 Importante
+  conditions = {Path = "/*"}

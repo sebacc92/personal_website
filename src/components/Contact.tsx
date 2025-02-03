@@ -31,20 +31,21 @@ export default function Contact() {
 
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
-
-    const body = new URLSearchParams({
-      'form-name': 'contact', // 👈 Asegura el form-name
-      ...formValues
-    });
+  
+    const formData = new FormData();
+    formData.append("form-name", "contact");
+    formData.append("name", formValues.name);
+    formData.append("email", formValues.email);
+    formData.append("message", formValues.message);
   
     try {
       await fetch("/", {
         method: "POST",
         headers: { "Content-Type": "application/x-www-form-urlencoded" },
-        body: body.toString()
+        body: new URLSearchParams(formData as any).toString(),
       });
       setIsSubmitted(true);
-      setFormValues({ name: '', email: '', message: '' });
+      setFormValues({ name: "", email: "", message: "" });
     } catch (error) {
       alert("Error: " + (error as Error).message);
     }
