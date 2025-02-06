@@ -12,24 +12,24 @@ export const translations = {
     },
     about: {
       title: 'About Me',
-      description: 'With over 5 years of experience in web development, I\'m passionate about creating innovative solutions that make a difference. I specialize in building scalable applications and love to share my knowledge with the developer community.',
+      description: 'I am a software developer passionate about building web applications that solve real-world problems. With experience in frontend and backend development, I specialize in modern frameworks like Qwik, React, and Vue, as well as backend technologies like FastAPI and PostgreSQL. I enjoy working on open-source projects and sharing knowledge with the developer community.',
       experience: {
         title: 'Experience',
-        item1: 'Senior Full Stack Developer at Tech Solutions Inc.',
-        item2: 'Lead Developer for multiple successful startups',
-        item3: 'Open source contributor to various projects'
+        item1: 'Founder & Developer of Geounity',
+        item2: 'Software Developer with experience in startups and freelance projects',
+        item3: 'Worked on projects like Resto Simple and iglobal.co'
       },
       education: {
         title: 'Education',
-        item1: 'Master\'s in Computer Science',
-        item2: 'Full Stack Development Certification',
-        item3: 'Cloud Architecture Specialization'
+        item1: 'Self-taught Full Stack Developer',
+        item2: 'Extensive experience in modern web development technologies',
+        item3: 'Continuous learner in cloud architecture and software design'
       },
       achievements: {
         title: 'Achievements',
-        item1: 'Published multiple technical articles',
-        item2: 'Speaker at tech conferences',
-        item3: 'Mentored 20+ junior developers'
+        item1: 'Built and launched an MVP for Geounity',
+        item2: 'Created a YouTube channel focused on web development',
+        item3: 'Contributed to open-source projects'
       }
     },
     projects: {
@@ -72,24 +72,24 @@ export const translations = {
     },
     about: {
       title: 'Sobre Mí',
-      description: 'Con más de 5 años de experiencia en desarrollo web, me apasiona crear soluciones innovadoras que marquen la diferencia. Me especializo en construir aplicaciones escalables y me encanta compartir mi conocimiento con la comunidad de desarrolladores.',
+      description: 'Soy un desarrollador de software apasionado por crear aplicaciones web que resuelvan problemas reales. Con experiencia en frontend y backend, me especializo en frameworks modernos como Qwik, React y Vue, además de tecnologías backend como FastAPI y PostgreSQL. Me gusta contribuir a proyectos open-source y compartir conocimiento con la comunidad de desarrolladores.',
       experience: {
         title: 'Experiencia',
-        item1: 'Desarrollador Full Stack Senior en Tech Solutions Inc.',
-        item2: 'Desarrollador Líder para múltiples startups exitosas',
-        item3: 'Contribuidor de código abierto en varios proyectos'
+        item1: 'Fundador y Desarrollador de Geounity',
+        item2: 'Desarrollador de software con experiencia en startups y proyectos freelance',
+        item3: 'Trabajé en proyectos como Resto Simple e iglobal.co'
       },
       education: {
         title: 'Educación',
-        item1: 'Maestría en Ciencias de la Computación',
-        item2: 'Certificación en Desarrollo Full Stack',
-        item3: 'Especialización en Arquitectura Cloud'
+        item1: 'Desarrollador Full Stack autodidacta',
+        item2: 'Experiencia en tecnologías modernas de desarrollo web',
+        item3: 'Aprendiz continuo en arquitectura cloud y diseño de software'
       },
       achievements: {
         title: 'Logros',
-        item1: 'Publicación de múltiples artículos técnicos',
-        item2: 'Ponente en conferencias tecnológicas',
-        item3: 'Mentor de más de 20 desarrolladores junior'
+        item1: 'Construcción y lanzamiento del MVP de Geounity',
+        item2: 'Creación de un canal de YouTube sobre desarrollo web',
+        item3: 'Contribución a proyectos de código abierto'
       }
     },
     projects: {
